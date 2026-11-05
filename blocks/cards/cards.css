@@ -3,17 +3,58 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-m);
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-card);
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cards > ul > li:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  margin: 28px;
+}
+
+.cards .cards-card-body > :first-child {
+  margin-top: 0;
+}
+
+.cards .cards-card-body h3 {
+  margin: 0 0 8px;
+  font-size: var(--heading-font-size-m);
+}
+
+.cards .cards-card-body p {
+  margin: 0;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-s);
+}
+
+/* an icon on its own line becomes a badge */
+.cards .cards-card-body p:has(> .icon:only-child) {
+  display: inline-grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background-color: var(--light-color);
+}
+
+.cards .cards-card-body .icon {
+  width: 26px;
+  height: 26px;
 }
 
 .cards .cards-card-image {

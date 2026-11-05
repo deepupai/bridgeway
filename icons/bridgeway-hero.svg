@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16A085"/><stop offset="1" stop-color="#0E7C66"/></linearGradient>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#04131F" flood-opacity=".45"/></filter>
+  </defs>
+  <g filter="url(#sh)">
+    <rect x="20" y="40" width="400" height="300" rx="22" fill="#fff"/>
+  </g>
+  <text x="48" y="86" font-size="14" fill="#5B6B78">Cash on hand</text>
+  <text x="48" y="122" font-size="32" font-weight="800" fill="#0B1F33">$48,920</text>
+  <rect x="300" y="68" width="92" height="28" rx="14" fill="#E3F4EF"/>
+  <text x="346" y="87" font-size="13" font-weight="700" fill="#0E7C66" text-anchor="middle">▲ 18% mo</text>
+  <g fill="url(#bar)">
+    <rect x="52" y="250" width="30" height="60" rx="6" opacity=".45"/>
+    <rect x="100" y="228" width="30" height="82" rx="6" opacity=".55"/>
+    <rect x="148" y="236" width="30" height="74" rx="6" opacity=".65"/>
+    <rect x="196" y="200" width="30" height="110" rx="6" opacity=".75"/>
+    <rect x="244" y="182" width="30" height="128" rx="6" opacity=".85"/>
+    <rect x="292" y="160" width="30" height="150" rx="6"/>
+    <rect x="340" y="146" width="30" height="164" rx="6"/>
+  </g>
+  <path d="M48 310h340" stroke="#E6ECEF" stroke-width="2"/>
+  <g filter="url(#sh)">
+    <rect x="290" y="300" width="210" height="104" rx="18" fill="#0B1F33"/>
+  </g>
+  <circle cx="324" cy="336" r="14" fill="#F5B83D"/>
+  <path d="m317 336 5 5 9-10" fill="none" stroke="#0B1F33" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="348" y="333" font-size="13" fill="#9FB3C2">Invoice #1042</text>
+  <text x="348" y="352" font-size="15" font-weight="700" fill="#fff">Paid · $2,400</text>
+  <text x="310" y="386" font-size="12" fill="#9FB3C2">Greenline Landscaping · just now</text>
+</svg>

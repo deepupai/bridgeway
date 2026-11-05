@@ -10,7 +10,31 @@ import {
   loadSections,
   loadCSS,
   buildBlock,
+  getMetadata,
+  toClassName,
 } from './aem.js';
+
+/**
+ * Sites served from this codebase. Each one gets a body class that selects its
+ * design tokens in styles.css. Keyed by the AEM site name in the hostname
+ * (main--{site}--{org}.aem.page / .aem.live).
+ */
+const SITE_THEMES = ['bridgeway', 'emberoak'];
+const DEFAULT_THEME = 'bridgeway';
+
+/**
+ * Resolves the site theme: page metadata wins, then a ?theme= override
+ * (handy on localhost), then the site name in the hostname.
+ * @returns {string} theme class name
+ */
+export function getSiteTheme() {
+  const fromMeta = toClassName(getMetadata('theme'));
+  if (SITE_THEMES.includes(fromMeta)) return fromMeta;
+  const fromQuery = toClassName(new URLSearchParams(window.location.search).get('theme') || '');
+  if (SITE_THEMES.includes(fromQuery)) return fromQuery;
+  const fromHost = SITE_THEMES.find((t) => window.location.hostname.includes(`--${t}--`));
+  return fromHost || DEFAULT_THEME;
+}
 
 if (window.trustedTypes && window.trustedTypes.createPolicy) {
   const innerTT = window.trustedTypes.createPolicy('tt-inner', {
@@ -143,6 +167,25 @@ function decorateButtons(main) {
 }
 
 /**
+ * Tags sections with a presentational role so authors don't have to:
+ * first section is the hero, last is the closing call to action, a section
+ * with a block keeps its block name, a section with a bulleted list becomes a
+ * checklist, and anything else is a narrative "story" section.
+ * Authors can still opt out by adding their own section classes.
+ * @param {Element} main The main element
+ */
+function decorateSectionRoles(main) {
+  const sections = [...main.querySelectorAll(':scope > .section')];
+  sections.forEach((section, i) => {
+    if (i === 0) section.classList.add('hero');
+    else if (i === sections.length - 1 && sections.length > 1) section.classList.add('cta');
+    else if (section.querySelector(':scope > div:not(.default-content-wrapper)')) section.classList.add('blocks');
+    else if (section.querySelector(':scope > .default-content-wrapper > ul')) section.classList.add('checklist');
+    else section.classList.add('story');
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -153,6 +196,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  if (main.matches('body > main')) decorateSectionRoles(main);
 }
 
 /**
@@ -162,6 +206,7 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+  document.body.classList.add(getSiteTheme());
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
